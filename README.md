@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/wtskubowa3gf16ib/branch/main?svg=true)](https://ci.appveyor.com/project/vsgenius/streamo-backend/branch/main) ![example workflow](https://github.com/vsgenius/streamo-backend/actions/workflows/node.js.yml/badge.svg)
+
 ## Backend для проекта Stream
 
 - после клонирования npm install
