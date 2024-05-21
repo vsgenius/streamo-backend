@@ -1,18 +1,30 @@
 import dotenv from 'dotenv';
-
 import express from 'express';
-
-import type { Request, Response } from 'express';
+import cors = require('cors');
+import cookieParser = require('cookie-parser');
+import mongoose = require('mongoose');
 
 dotenv.config();
+const router = require('./router/index');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Streamo-backend');
-});
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+app.use('/api', router);
 
-app.listen(port, () => {
-  return (`[server]: Server is running http://localhost:${port}`);
-});
+const start = async () => {
+  try {
+    if (!process.env.DB_URL){
+      throw new Error('путь к БД не прописан');
+    }
+    await mongoose.connect(process.env.DB_URL, { dbName: process.env.DB_NAME });
+    app.listen(port, () => console.log(`Running on port ${port}`));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+start();
