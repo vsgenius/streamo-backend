@@ -1,15 +1,6 @@
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
-type UserType = {
-  name: string;
-  email: string;
-  password: string;
-  isActivate: boolean;
-  isAdmin: boolean;
-  activateLink: string;
-};
-
-const userSchema = new Schema<UserType>({
+const userSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   isActivate: { type: Boolean, default: false },
