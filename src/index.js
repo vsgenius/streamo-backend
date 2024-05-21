@@ -1,14 +1,15 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import cors = require('cors');
-import cookieParser = require('cookie-parser');
-import mongoose = require('mongoose');
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 
-dotenv.config();
+console.log('userController');
+
 const router = require('./router/index');
 
-const app = express();
 const port = process.env.PORT || 5000;
+const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
