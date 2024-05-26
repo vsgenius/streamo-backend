@@ -5,16 +5,17 @@ const UserModel = require('../../models/user-model');
 const mailService = require('../mail/mail-service');
 const generateToken = require('../token/generateToken');
 const saveToken = require('../token/save');
+const ApiError = require('../../errors/api-error');
 
 async function registration(email, password) {
   const user = await UserModel.findOne({ email });
   if (user) {
-    return { status: 'error', text: `Пользователь с почтовым адресом ${email} уже существует` };
+    throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`);
   }
   const passwordHash = await bcrypt.hash(password, 3);
   const activateLink = uuid.v4();
-  const newUser = await UserModel.create({ email, password: passwordHash, activateLink });
   await mailService.sendActivateMail(email, `${process.env.API_URL}/api/activate/${activateLink}`);
+  const newUser = await UserModel.create({ email, password: passwordHash, activateLink });
   const tokens = generateToken({
     id: newUser._id,
     email: newUser.email,
