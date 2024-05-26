@@ -40,6 +40,8 @@
     ],
     "no-console":"off",
     "no-underscore-dangle":"off",
-    "import/no-import-module-exports": "off"
+    "import/no-import-module-exports": "off",
+    "consistent-return": "off",
+    "func-names":"off"
   }
 }
